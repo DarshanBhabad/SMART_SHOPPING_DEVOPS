@@ -10,6 +10,8 @@ pipeline {
         K8S_SSH_KEY = credentials('k8s-ssh-key')
         SUPABASE_URL = credentials('supabase-url')
         SUPABASE_SERVICE_KEY = credentials('supabase-service-key')
+        REACT_APP_SUPABASE_URL = credentials('react-supabase-url')
+        REACT_APP_SUPABASE_ANON_KEY = credentials('supabase-anon-key')
     }
 
     stages {
@@ -34,7 +36,7 @@ pipeline {
             steps {
                 echo 'Running backend tests...'
                 dir('backend') {
-                    sh 'npm test'
+                    sh 'SUPABASE_URL=$SUPABASE_URL SUPABASE_SERVICE_KEY=$SUPABASE_SERVICE_KEY npm test'
                 }
             }
         }
@@ -43,13 +45,13 @@ pipeline {
             steps {
                 echo 'Building Docker images...'
                 sh 'docker build -t ${BACKEND_IMAGE}:latest ./backend'
-                sh '''
-                    docker build \
-                        --build-arg REACT_APP_SUPABASE_URL=${REACT_APP_SUPABASE_URL} \
-                        --build-arg REACT_APP_SUPABASE_ANON_KEY=${REACT_APP_SUPABASE_ANON_KEY} \
-                        --build-arg REACT_APP_API_URL=/api \
+                sh """
+                    docker build \\
+                        --build-arg REACT_APP_SUPABASE_URL=${REACT_APP_SUPABASE_URL} \\
+                        --build-arg REACT_APP_SUPABASE_ANON_KEY=${REACT_APP_SUPABASE_ANON_KEY} \\
+                        --build-arg REACT_APP_API_URL=/api \\
                         -t ${FRONTEND_IMAGE}:latest ./frontend
-                '''
+                """
             }
         }
 
