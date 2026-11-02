@@ -2,7 +2,8 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_HUB_CREDENTIALS = credentials('dockerhub-credentials')
+        DOCKER_HUB_USER = credentials('dockerhub-user')
+        DOCKER_HUB_PASS = credentials('dockerhub-pass')
         BACKEND_IMAGE = 'bboy07/smart-shopping-backend'
         FRONTEND_IMAGE = 'bboy07/smart-shopping-frontend'
         K8S_SERVER = credentials('k8s-server-ip')
@@ -53,7 +54,7 @@ pipeline {
         stage('Push to Docker Hub') {
             steps {
                 echo 'Pushing images to Docker Hub...'
-                sh 'echo $DOCKER_HUB_CREDENTIALS_PSW | docker login -u $DOCKER_HUB_CREDENTIALS_USR --password-stdin'
+                sh 'echo $DOCKER_HUB_PASS | docker login -u $DOCKER_HUB_USER --password-stdin'
                 sh 'docker push ${BACKEND_IMAGE}:latest'
                 sh 'docker push ${FRONTEND_IMAGE}:latest'
             }
