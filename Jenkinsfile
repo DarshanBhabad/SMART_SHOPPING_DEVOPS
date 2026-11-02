@@ -44,7 +44,7 @@ pipeline {
                     docker build \
                         --build-arg REACT_APP_SUPABASE_URL=${REACT_APP_SUPABASE_URL} \
                         --build-arg REACT_APP_SUPABASE_ANON_KEY=${REACT_APP_SUPABASE_ANON_KEY} \
-                        --build-arg REACT_APP_API_URL=${REACT_APP_API_URL} \
+                        --build-arg REACT_APP_API_URL=/api \
                         -t ${FRONTEND_IMAGE}:latest ./frontend
                 '''
             }

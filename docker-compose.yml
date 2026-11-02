@@ -18,7 +18,7 @@ services:
       args:
         - REACT_APP_SUPABASE_URL=${SUPABASE_URL}
         - REACT_APP_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9mcXhrZmdoa3hweW9ibHdub3d2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTM1NzkyMzksImV4cCI6MjEwOTE1NTIzOX0.-upJwdn8DiZsmxnZccW76YQmt_oDiP8v-vg0911eVno
-        - REACT_APP_API_URL=http://localhost:5000/api
+        - REACT_APP_API_URL=/api
     container_name: smart-shopping-frontend
     ports:
       - "3000:80"
