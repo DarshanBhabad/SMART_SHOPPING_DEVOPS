@@ -8,6 +8,8 @@ pipeline {
         FRONTEND_IMAGE = 'bboy07/smart-shopping-frontend'
         K8S_SERVER = credentials('k8s-server-ip')
         K8S_SSH_KEY = credentials('k8s-ssh-key')
+        SUPABASE_URL = credentials('supabase-url')
+        SUPABASE_SERVICE_KEY = credentials('supabase-service-key')
     }
 
     stages {
